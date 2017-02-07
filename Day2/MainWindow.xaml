@@ -63,11 +63,10 @@
                         Name="RunAProgramTextBlock"
                         Grid.Column="0" />
             <ComboBox Name="ProgramToRunComboBox"
-                      IsReadOnly="False"
-                      IsEditable="True"
-                      Width="70"
-                      SelectedIndex="2"
+                      Width="133"
+                      SelectedIndex="0"
                       Grid.Column="1">
+                <ComboBoxItem Content="Choose a program..." />
                 <ComboBoxItem Content="Notepad" />
                 <ComboBoxItem Content="Paint" />
             </ComboBox>

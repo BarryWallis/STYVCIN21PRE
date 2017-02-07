@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace Day2
 {
@@ -58,14 +59,26 @@ namespace Day2
                 case "Paint":
                     selection = "mspaint.exe";
                     break;
-                case null:
-                    return;
                 default:
-                    Debug.Fail("Program not found");
+                    selection = ChooseAProgram();
                     break;
             }
 
-            Process.Start(selection);
+            if (selection != null)
+                Process.Start(selection);
+        }
+
+        private static string ChooseAProgram()
+        {
+            OpenFileDialog dialog = new OpenFileDialog()
+            {
+                CheckFileExists = true,
+                CheckPathExists = true,
+                DereferenceLinks = true,
+                DefaultExt = "*.exe",
+                Filter = "Executable programs|*.exe;*.com;*.bat|All Files|*.*"
+            };
+            return dialog.ShowDialog() ?? false ? dialog.FileName : null;
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
