@@ -10,6 +10,7 @@
         Width="525">
         <Canvas Name="Canvas"
                 MouseMove="Canvas_MouseMove"
+                MouseLeftButtonDown="Canvas_MouseLeftButtonDown"
                 Background="Transparent"
                 Height="Auto"
                 Width="Auto" />

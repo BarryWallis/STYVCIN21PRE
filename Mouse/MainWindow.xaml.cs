@@ -20,6 +20,9 @@ namespace Mouse
     /// </summary>
     public partial class MainWindow : Window
     {
+        double previousX = 0;
+        double previousY = 0;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -27,19 +30,33 @@ namespace Mouse
 
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
+            if (e is null)
+                throw new ArgumentNullException(nameof(e));
+
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                Rectangle rectangle = new Rectangle()
+                double x = e.MouseDevice.GetPosition(this).X;
+                double y = e.MouseDevice.GetPosition(this).Y;
+                Line line = new Line()
                 {
-                    Height = 1,
-                    Width = 1,
-                    Fill = new SolidColorBrush(Color.FromRgb(0, 0, 0)),
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    VerticalAlignment = VerticalAlignment.Top,
-                    Margin = new Thickness(e.MouseDevice.GetPosition(this).X, e.MouseDevice.GetPosition(this).Y, 0, 0),
+                    X1 = previousX,
+                    Y1 = previousY,
+                    X2 = x,
+                    Y2 = y,
+                    SnapsToDevicePixels = true,
+                    Stroke = Brushes.Black,
+                    StrokeThickness = 1,
                 };
-                Canvas.Children.Add(rectangle);
+                Canvas.Children.Add(line);
+                previousX = x;
+                previousY = y;
             }
+        }
+
+        private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            previousX = e.MouseDevice.GetPosition(this).X;
+            previousY = e.MouseDevice.GetPosition(this).Y;
         }
     }
 }
