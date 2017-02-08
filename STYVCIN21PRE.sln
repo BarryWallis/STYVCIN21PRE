@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26127.3
+VisualStudioVersion = 15.0.26206.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day 1", "Day 1", "{7FC3F3BD-D833-4486-8A13-ECE24CC5CA10}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day 2", "Day 2", "{E30964C4-5F7E-4674-A1A5-3F5B2FF910DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day2", "Day2\Day2.csproj", "{86AD89BF-D163-40DC-9986-8F2B861B03C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day 3", "Day 3", "{672530D8-D103-437F-8FFA-B2C61D75EFDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mouse", "Mouse\Mouse.csproj", "{CC4C13E6-D642-4554-865F-9E9A035F6AC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{86AD89BF-D163-40DC-9986-8F2B861B03C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86AD89BF-D163-40DC-9986-8F2B861B03C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86AD89BF-D163-40DC-9986-8F2B861B03C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC4C13E6-D642-4554-865F-9E9A035F6AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC4C13E6-D642-4554-865F-9E9A035F6AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC4C13E6-D642-4554-865F-9E9A035F6AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC4C13E6-D642-4554-865F-9E9A035F6AC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,5 +40,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F77B181A-4823-471C-99BA-0D2443264211} = {7FC3F3BD-D833-4486-8A13-ECE24CC5CA10}
 		{86AD89BF-D163-40DC-9986-8F2B861B03C6} = {E30964C4-5F7E-4674-A1A5-3F5B2FF910DC}
+		{CC4C13E6-D642-4554-865F-9E9A035F6AC6} = {672530D8-D103-437F-8FFA-B2C61D75EFDF}
 	EndGlobalSection
 EndGlobal
