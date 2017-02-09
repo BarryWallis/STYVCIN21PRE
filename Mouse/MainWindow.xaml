@@ -6,11 +6,13 @@
         xmlns:local="clr-namespace:Mouse"
         mc:Ignorable="d"
         Title="Mouse and Keyboard"
+        KeyDown="Window_KeyDown"
         Height="350"
         Width="525">
         <Canvas Name="Canvas"
                 MouseMove="Canvas_MouseMove"
                 MouseLeftButtonDown="Canvas_MouseLeftButtonDown"
+                MouseRightButtonDown="Canvas_MouseRightButtonDown"
                 Background="Transparent"
                 Height="Auto"
                 Width="Auto" />
