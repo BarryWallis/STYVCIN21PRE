@@ -26,6 +26,9 @@
             <AccessText Text="Timer _Interval: "
                         Grid.Column="0" />
             <TextBox Name="IntervalTextBox"
+                     Text="100"
+                     HorizontalAlignment="Right"
+                     Width="Auto"
                      Grid.Column="1" />
             <Button Name="StartTimerButton"
                     Content=" _Start Timer "
