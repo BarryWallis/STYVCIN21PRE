@@ -81,6 +81,8 @@
                 Width="75"
                 HorizontalAlignment="Left"
                 Name="YesOrNoButton"
+                IsEnabled="False"
+                Click="YesOrNoButton_Click"
                 Content="Y_es or No" />
         <Button Grid.Row="4"
                 Grid.Column="1"

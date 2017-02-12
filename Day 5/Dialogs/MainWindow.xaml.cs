@@ -93,6 +93,7 @@ namespace Dialogs
             {
                 DialogResultsTextBox.Text = messageDialog.MessageTextBox.Text;
                 WhichOptionButton.IsEnabled = true;
+                YesOrNoButton.IsEnabled = true;
             }
         }
 
@@ -117,6 +118,13 @@ namespace Dialogs
                 default:
                     break;
             }
+        }
+
+        private void YesOrNoButton_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.Assert(messageDialog != null);
+
+            DialogResultsTextBox.Text = messageDialog.MessageBoxResult.ToString();
         }
     }
 }
