@@ -22,6 +22,7 @@ namespace Menus
     public partial class MainWindow : Window
     {
         public static RoutedCommand HelloCommand = new RoutedCommand();
+        public static RoutedCommand ExitCommand = new RoutedCommand();
 
         public MainWindow()
         {
@@ -33,25 +34,12 @@ namespace Menus
             Close();
         }
 
-        private void ExecutedHelloCommand(object sender, ExecutedRoutedEventArgs e)
-        {
-            MessageBox.Show("Hello there!", "Hello");
-        }
+        private void ExecutedHelloCommand(object sender, ExecutedRoutedEventArgs e) => MessageBox.Show("Hello there!", "Hello");
 
-         private void CanExecuteHelloCommand(object sender, CanExecuteRoutedEventArgs e)
-        {
-            if (e is null)
-                throw new ArgumentNullException(nameof(e));
+        private void CanExecuteHelloCommand(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
 
-            Control target = e.Source as Control;
-            Debug.Assert(target != null);
+        private void ExecutedExitCommand(object sender, ExecutedRoutedEventArgs e) => Close();
 
-            e.CanExecute = target != null;
-        }
-
-        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
+        private void CanExecuteExitCommand(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
     }
 }

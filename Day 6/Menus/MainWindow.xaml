@@ -10,6 +10,9 @@
         <CommandBinding Command="{x:Static local:MainWindow.HelloCommand}"
                         Executed="ExecutedHelloCommand"
                         CanExecute="CanExecuteHelloCommand" />
+        <CommandBinding Command="{x:Static local:MainWindow.ExitCommand}"
+                        Executed="ExecutedExitCommand"
+                        CanExecute="CanExecuteExitCommand" />
     </Window.CommandBindings>
     <Grid>
         <DockPanel>
@@ -17,6 +20,9 @@
                 <MenuItem Header="_File">
                     <MenuItem Command="{x:Static local:MainWindow.HelloCommand}" 
                               Header="_Hello"/>
+                    <Separator />
+                    <MenuItem Command="{x:Static local:MainWindow.ExitCommand}"
+                              Header="E_xit" />
                 </MenuItem>
             </Menu>        
         </DockPanel>
