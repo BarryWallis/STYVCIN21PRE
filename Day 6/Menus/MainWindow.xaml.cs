@@ -21,16 +21,22 @@ namespace Menus
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static RoutedCommand HelloCommand = new RoutedCommand();
-        public static RoutedCommand ExitCommand = new RoutedCommand();
+        private AboutDialog aboutDialog = new AboutDialog();
+
+        public static readonly RoutedCommand HelloCommand = new RoutedCommand();
+        public static readonly RoutedCommand ExitCommand = new RoutedCommand();
+        public static readonly  RoutedCommand AboutCommand = new RoutedCommand();
 
         public MainWindow()
         {
             InitializeComponent();
+
+            Focus();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
+            aboutDialog?.Close();
             Close();
         }
 
@@ -38,8 +44,10 @@ namespace Menus
 
         private void CanExecuteHelloCommand(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
 
-        private void ExecutedExitCommand(object sender, ExecutedRoutedEventArgs e) => Close();
-
         private void CanExecuteExitCommand(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
+        private void ExecutedAboutCommand(object sender, ExecutedRoutedEventArgs e) => aboutDialog.ShowDialog();
+
+        private void CanExecuteAboutCommand(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
     }
 }

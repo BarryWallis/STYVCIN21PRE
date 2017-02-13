@@ -11,10 +11,21 @@
                         Executed="ExecutedHelloCommand"
                         CanExecute="CanExecuteHelloCommand" />
         <CommandBinding Command="{x:Static local:MainWindow.ExitCommand}"
-                        Executed="ExecutedExitCommand"
+                        Executed="ExitButton_Click"
                         CanExecute="CanExecuteExitCommand" />
+        <CommandBinding Command="{x:Static local:MainWindow.AboutCommand}"
+                        Executed="ExecutedAboutCommand"
+                        CanExecute="CanExecuteAboutCommand" />
     </Window.CommandBindings>
     <Grid>
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="_Help">
+                    <MenuItem Command="{x:Static local:MainWindow.AboutCommand}"
+                              Header="_About" />
+                </MenuItem>
+            </ContextMenu>
+        </Grid.ContextMenu>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
@@ -23,6 +34,10 @@
                     <Separator />
                     <MenuItem Command="{x:Static local:MainWindow.ExitCommand}"
                               Header="E_xit" />
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Command="{x:Static local:MainWindow.AboutCommand}"
+                              Header="_About" />
                 </MenuItem>
             </Menu>        
         </DockPanel>
