@@ -1,0 +1,72 @@
+﻿<Window x:Class="Day7.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Day7"
+        mc:Ignorable="d"
+        SizeToContent="WidthAndHeight"
+        MinWidth="300"
+        Title="Fonts" Height="Auto" Width="Auto">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <AccessText Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="0, 0, 0, 10"
+                    Text="_Enter Some Text: " />
+        <TextBox Grid.Row="0"
+                 Grid.Column="1"
+                 Margin="0, 0, 0, 10"
+                 Text="Testing"
+                 TextChanged="SampleTextBox_TextChanged"
+                 Name="SampleTextBox" />
+        <AccessText Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0, 0, 0, 5"
+                    Text="_Select a Font: " />
+        <ListBox Grid.Row="1"
+                 Grid.Column="1"
+                 Margin="0, 0, 0, 5"
+                 Height="109"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 SelectionChanged="FontsListBox_SelectionChanged"
+                 Name="FontsListBox">
+        </ListBox>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+        <CheckBox Name="BoldCheckBox"
+                  Content="_Bold"
+                  Checked="SetFontWeight"
+                  Unchecked="SetFontWeight"
+                  Margin="0, 0, 10, 0"/>
+        <CheckBox Name="UseSampleTextCheckBox"
+                  Checked="SetDisplayTextBlock"
+                  Unchecked="SetDisplayTextBlock"
+                  Content="_Use Sample Text"/>
+        </StackPanel>
+        <GroupBox Grid.Row="3"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  Header="Font Sample">
+            <TextBlock Name="DisplayTextBlock"
+                       TextWrapping="Wrap" />
+        </GroupBox>
+        <Button Grid.Row="4"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Width="75"
+                Margin="0, 10, 0, 0"
+                Click="ExitButton_Click"
+                Name="ExitButton"
+                Content="E_xit" />
+    </Grid>
+</Window>
