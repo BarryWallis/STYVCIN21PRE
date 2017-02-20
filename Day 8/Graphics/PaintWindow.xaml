@@ -7,5 +7,6 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Paint" Height="300" Width="300">
-    <Canvas Name="Canvas" />
+    <Canvas Name="Canvas" 
+            SizeChanged="Canvas_SizeChanged"/>
 </Window>

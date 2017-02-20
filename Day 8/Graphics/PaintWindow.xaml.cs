@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,13 @@ namespace Graphics
     /// </summary>
     public partial class PaintWindow : Window
     {
+        enum Viewing { Nothing, Shape, Image, Line};
+        private Viewing viewing = Viewing.Nothing;
+        private SolidColorBrush lastBrush = null;
+        private TheShape lastShape;
+        private bool lastIsFilled;
+        private System.Windows.Controls.Image lastImage = null;
+
         private DashStyle[] dashStyles = new DashStyle[] { DashStyles.Solid, DashStyles.Dot, DashStyles.Dash, DashStyles.DashDot, DashStyles.DashDotDot };
 
         public PaintWindow()
@@ -33,7 +41,10 @@ namespace Graphics
         /// <param name="brush">The brush to use to draw the lines.</param>
         public void DrawLines(SolidColorBrush brush)
         {
-            Canvas.Children.Clear();
+            if (brush is null)
+                throw new ArgumentNullException(nameof(brush));
+
+            Canvas.Children.Clear(); 
             System.Windows.Point start = new System.Windows.Point(0, 0);
             double distance = Height / (dashStyles.Length + 1);
             System.Windows.Point end = new System.Windows.Point(Width, start.Y);
@@ -43,6 +54,9 @@ namespace Graphics
                 end = new System.Windows.Point(end.X, start.Y);
                 DrawLine(brush, ref start, ref end, dashStyle);
             }
+
+            lastBrush = brush;
+            viewing = Viewing.Line;
         }
 
         /// <summary>
@@ -76,6 +90,11 @@ namespace Graphics
                 left += horizontal;
                 right = left + width;
             }
+
+            lastBrush = brush;
+            lastShape = shape;
+            lastIsFilled = isFilled;
+            viewing = Viewing.Shape;
         }
 
         /// <summary>
@@ -90,6 +109,21 @@ namespace Graphics
         /// <param name="isFilled">If true, fill with the brush; otherwise outline dashes with the brush.</param>
         private void DrawShape(Shape shape, SolidColorBrush brush, double top, double left, double bottom, double right, DashStyle dashStyle, bool isFilled)
         {
+            if (shape is null)
+                throw new ArgumentNullException(nameof(shape));
+            if (top < 0)
+                throw new ArgumentOutOfRangeException(nameof(top), top, "Must be non-negstive");
+            if (left < 0)
+                throw new ArgumentOutOfRangeException(nameof(left), left, "Must be non-negstive");
+            if (bottom < 0)
+                throw new ArgumentOutOfRangeException(nameof(bottom), bottom, "Must be non-negstive");
+            if (right < 0)
+                throw new ArgumentOutOfRangeException(nameof(right), right, "Must be non-negstive");
+            if (right <= left)
+                throw new ArgumentException("Width must be positive");
+            if (bottom <= top)
+                throw new ArgumentException("Height must be positive");
+
             shape.Width = right - left;
             shape.Height = bottom - top;
             if (isFilled)
@@ -107,10 +141,21 @@ namespace Graphics
             Canvas.SetTop(shape, top);
         }
 
+        /// <summary>
+        /// Draw the image on the canvas.
+        /// </summary>
+        /// <param name="image">The image to draw.</param>
         public void DrawImage(System.Windows.Controls.Image image)
         {
+            if (image is null)
+                throw new ArgumentNullException(nameof(image));
+
+            image.Height = Height;
+            image.Width = Width;
             Canvas.Children.Clear();
             Canvas.Children.Add(image);
+            lastImage = image;
+            viewing = Viewing.Image;
         }
 
         /// <summary>
@@ -135,6 +180,27 @@ namespace Graphics
                 StrokeDashCap = PenLineCap.Round,
             };
             Canvas.Children.Add(line);
+        }
+
+        private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            switch (viewing)
+            {
+                case Viewing.Nothing:
+                    break;
+                case Viewing.Line:
+                    DrawLines(lastBrush);
+                    break;
+                case Viewing.Shape:
+                    DrawShapes(lastBrush, lastShape, lastIsFilled);
+                    break;
+                case Viewing.Image:
+                    DrawImage(lastImage);
+                    break;
+                default:
+                    Debug.Fail("Unexpected Viewing value");
+                    break;
+            }
         }
     }
 }

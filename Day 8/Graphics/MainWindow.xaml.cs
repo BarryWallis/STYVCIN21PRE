@@ -24,18 +24,18 @@ namespace Graphics
     public partial class MainWindow : Window
     {
         private PaintWindow paintWindow = new PaintWindow();
-        private SolidColorBrush brush = null;
+        private SolidColorBrush brush = blackBrush;
         private System.Windows.Controls.Image image = null;
         private RadioButton currentToolRadioButton = null;
 
-        private readonly SolidColorBrush blackBrush = new SolidColorBrush(Colors.Black);
-        private readonly SolidColorBrush blueBrush = new SolidColorBrush(Colors.Blue);
-        private readonly SolidColorBrush greenBrush = new SolidColorBrush(Colors.Green);
-        private readonly SolidColorBrush cyanBrush = new SolidColorBrush(Colors.Cyan);
-        private readonly SolidColorBrush redBrush = new SolidColorBrush(Colors.Red);
-        private readonly SolidColorBrush magentaBrush = new SolidColorBrush(Colors.Magenta);
-        private readonly SolidColorBrush yellowBrush = new SolidColorBrush(Colors.Yellow);
-        private readonly SolidColorBrush whiteBrush = new SolidColorBrush(Colors.White);
+        private static SolidColorBrush blackBrush = new SolidColorBrush(Colors.Black);
+        private static SolidColorBrush blueBrush = new SolidColorBrush(Colors.Blue);
+        private static SolidColorBrush greenBrush = new SolidColorBrush(Colors.Green);
+        private static SolidColorBrush cyanBrush = new SolidColorBrush(Colors.Cyan);
+        private static SolidColorBrush redBrush = new SolidColorBrush(Colors.Red);
+        private static SolidColorBrush magentaBrush = new SolidColorBrush(Colors.Magenta);
+        private static SolidColorBrush yellowBrush = new SolidColorBrush(Colors.Yellow);
+        private static SolidColorBrush whiteBrush = new SolidColorBrush(Colors.White);
 
         public MainWindow()
         {
@@ -106,6 +106,9 @@ namespace Graphics
 
         private void ToolChanged(object sender, RoutedEventArgs e)
         {
+            if (sender is null)
+                throw new ArgumentNullException(nameof(sender));
+
             Draw();
             currentToolRadioButton = sender as RadioButton;
             Debug.Assert(currentToolRadioButton != null);
@@ -154,8 +157,6 @@ namespace Graphics
                 sourceImage.EndInit();
                 image.Source = sourceImage;
                 image.Stretch = Stretch.Uniform;
-                image.Height = paintWindow.Height;
-                image.Width = paintWindow.Width;
                 Draw();
             }
         }
