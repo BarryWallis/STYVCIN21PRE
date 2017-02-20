@@ -63,7 +63,7 @@ namespace Graphics
         /// Draw shapes using each dash style as the black border.
         /// </summary>
         /// <param name="brush">The brush to use for each square.</param>
-        public void DrawShapes(SolidColorBrush brush, TheShape shape, bool isFilled)
+        public void DrawShapes(SolidColorBrush brush, TheShape shape, bool isFilled, BitmapImage bitmapImage = null)
         {
             Canvas.Children.Clear();
             double vertical = Height / 2;
@@ -79,10 +79,10 @@ namespace Graphics
                 switch (shape)
                 {
                     case TheShape.Square:
-                        DrawShape(new System.Windows.Shapes.Rectangle(), brush, top, left, bottom, right, dashStyle, isFilled);
+                        DrawShape(new System.Windows.Shapes.Rectangle(), brush, top, left, bottom, right, dashStyle, isFilled, bitmapImage);
                         break;
                     case TheShape.Circle:
-                        DrawShape(new Ellipse(), brush, top, left, bottom, right, dashStyle, isFilled);
+                        DrawShape(new Ellipse(), brush, top, left, bottom, right, dashStyle, isFilled, bitmapImage);
                         break;
                     default:
                         break;
@@ -107,7 +107,7 @@ namespace Graphics
         /// <param name="right">The location of the right side of the shape.</param>
         /// <param name="dashStyle">The dash style of the black border.</param>
         /// <param name="isFilled">If true, fill with the brush; otherwise outline dashes with the brush.</param>
-        private void DrawShape(Shape shape, SolidColorBrush brush, double top, double left, double bottom, double right, DashStyle dashStyle, bool isFilled)
+        private void DrawShape(Shape shape, SolidColorBrush brush, double top, double left, double bottom, double right, DashStyle dashStyle, bool isFilled, BitmapImage bitmapImage)
         {
             if (shape is null)
                 throw new ArgumentNullException(nameof(shape));
@@ -128,6 +128,8 @@ namespace Graphics
             shape.Height = bottom - top;
             if (isFilled)
                 shape.Fill = brush;
+            else if (bitmapImage != null)
+                shape.Fill = new ImageBrush(bitmapImage);
             else
             {
                 shape.Stroke = brush;

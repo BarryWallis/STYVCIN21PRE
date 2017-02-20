@@ -25,7 +25,7 @@ namespace Graphics
     {
         private PaintWindow paintWindow = new PaintWindow();
         private SolidColorBrush brush = blackBrush;
-        private System.Windows.Controls.Image image = null;
+        private BitmapImage bitmapImage = null;
         private RadioButton currentToolRadioButton = null;
 
         private static SolidColorBrush blackBrush = new SolidColorBrush(Colors.Black);
@@ -119,22 +119,22 @@ namespace Graphics
             if (LineRadioButton is null)
                 return;
 
-            if (BitmapRadioButton.IsChecked == true)
-            {
-                if (image is null)
-                {
-                    MessageBox.Show("No image file selected");
-                    currentToolRadioButton.IsChecked = true;
-                }
-                else
-                    paintWindow.DrawImage(image);
-            }
-            else if (LineRadioButton.IsChecked == true)
+            if (LineRadioButton.IsChecked == true)
                 paintWindow.DrawLines(brush);
             else if (SquareRadioButton.IsChecked == true)
-                paintWindow.DrawShapes(brush, TheShape.Square, BrushRadioButton.IsChecked == true);
+            {
+                if (BitmapRadioButton.IsChecked == true)
+                    paintWindow.DrawShapes(brush, TheShape.Square, BrushRadioButton.IsChecked == true, bitmapImage);
+                else
+                    paintWindow.DrawShapes(brush, TheShape.Square, BrushRadioButton.IsChecked == true);
+            }
             else if (CircleRadioButton.IsChecked == true)
-                paintWindow.DrawShapes(brush, TheShape.Circle, BrushRadioButton.IsChecked == true);
+            {
+                if (BitmapRadioButton.IsChecked == true)
+                    paintWindow.DrawShapes(brush, TheShape.Circle, BrushRadioButton.IsChecked == true, bitmapImage);
+                else
+                    paintWindow.DrawShapes(brush, TheShape.Circle, BrushRadioButton.IsChecked == true);
+            }
             else
                 Debug.Fail("Shape radio button not found");
         }
@@ -150,13 +150,10 @@ namespace Graphics
             };
             if (openFileDialog.ShowDialog() == true)
             {
-                image = new System.Windows.Controls.Image();
-                BitmapImage sourceImage = new BitmapImage();
-                sourceImage.BeginInit();
-                sourceImage.UriSource = new Uri(openFileDialog.FileName);
-                sourceImage.EndInit();
-                image.Source = sourceImage;
-                image.Stretch = Stretch.Uniform;
+                bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.UriSource = new Uri(openFileDialog.FileName);
+                bitmapImage.EndInit();
                 Draw();
             }
         }
